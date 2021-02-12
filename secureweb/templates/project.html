@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>
+          Information Gathering
+          <a href="{% url 'tambah_web' %}">add web</a>
+        </h3>
+        
+        {% for message in messages %}
+              {% if message %}
+                <div class="alert alert-success">{{ message }}</div>
+              {% endif %}
+            {% endfor %}
+        <table class="table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>NAMA</th>
+              <th>LING</th>
+              <th>TIPE</th>
+              <th>PEMBUAT</th>
+              <th>PEMILIK</th>
+              <th>KOLOM</th>
+              <th>KEAMANAN</th>
+              <th>ACTION</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for project in proyek %}
+              <tr>
+                <td><a href="{% url 'ubah_project' project.id %}">{{ project.nama }}</a></td>
+                <td>{{ project.ling }}</td>
+                <td>{{ project.tipe }}</td>
+                <td>{{ project.pembuat }}</td>
+                <td>{{ project.pemilik }}</td>
+                <td>{{ project.kolom }}</td>
+                <td>{{ project.keamanan_id }}</td>
+                <td>
+                  <button data-toggle="modal" data-target="#hapus-{{ project.id }}" class="btn btn-danger">Delete</button>
+                </td>
+
+                <div class="modal" id="hapus-{{ project.id }}">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <div class="modal-title">
+                          <h3>Delete</h3>
+                        </div>
+                      </div>
+                      <div class="modal-body">
+                        Are you sure you want to remove the list of websites from the list here <strong>{{ project.nama | upper }}</strong>? 
+                      </div>
+                      <div class="modal-footer">
+                        <a href="{% url 'hapus_project' project.id %}" class="btn btn-danger">Delete</a>
+                        <button class="btn btn-dark" data-dismiss="modal">NO</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+{% endblock %}

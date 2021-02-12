@@ -1,0 +1,6 @@
+<center>
+    <h1>SECUREWEB</h1>
+    {% if user.is_authenticated %}
+    <p>kamu <strong>{{ user }}</strong> mau mmmm <a href="{% url 'keluar' %}">Keluar?</a></p>
+    {% endif %}
+</center>
